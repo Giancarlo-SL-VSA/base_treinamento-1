@@ -242,15 +242,15 @@
             return;
         }
         $.ajax({
-            url: "<?=base_url('login/ajax_autenticar')?>", // URL que será chamada a requesição
+            url: "<?=base_url('login/ajax_autenticar')?>", // URL que será chamada a requisição
             type: "POST", // Tipo de requisição (GET, POST, etc.)
             dataType: "json", // Tipo de dados esperado na resposta, como está no estilo json ele só irá aceitar valores JSON como resultado, se o retorno não for um JSON irá para a função error
-            data: { //dados que serão enviados pela requesição
+            data: { //dados que serão enviados pela requisição
                 email: email,
                 senha: senha
             },
             cache: false,
-            success: function(data) { //caso a requesição deu certo ela entrará neste espaço
+            success: function(data) { //caso a requisição deu certo ela entrará neste espaço
                 if(data.sucesso){
                     window.location.href = data.destino;
                 }else{
@@ -258,7 +258,7 @@
                     $("#senha").val('');
                 }
             },
-            error: function() { //caso dê erro na requesição(por exemplo url que não existe) entrará neste espaço
+            error: function() { //caso dê erro na requisição(por exemplo url que não existe) entrará neste espaço
                 exibirAviso('Aconteceu um erro em nosso servidor', 'alerta');
             }
         });

@@ -72,9 +72,9 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     
-                    <?php if($tipo_acesso == '1'): ?>
+                    <?php if($tipo_acesso == '1'):?>
                         <li>
-                            <a style="cursor: pointer;">
+                            <a style="cursor: pointer;" href="<?=$homeUrl?>/carrinho">
                                 <i id="icone_carrinho" class="glyphicon glyphicon-shopping-cart"></i>
                                 <span id="quantidade_carrinho" class="badge badge-primary">0</span>
                             </a>
@@ -86,8 +86,8 @@
                         <?php if($tipo_acesso == '1'): ?>
                             <li><a href="#">Pedidos</a></li>
                         <?php elseif($tipo_acesso == '2'): ?>
-                            <li><a href="#">Produtos</a></li>
-                            <li><a href="#">Vendas</a></li>
+                            <li><a href="<?=$homeUrl?>/produtos">Produtos</a></li>
+                            <li><a href="<?=$homeUrl?>/vendas">Vendas</a></li>
                         <?php endif; ?>
                         <li role="separator" class="divider"></li>
                         <li><a href="<?=base_url('login/logout')?>">Logout</a></li>
@@ -103,3 +103,28 @@
     </main>
 </body>
 </html>
+<script>
+    $(document).ready(function() {
+        quantidade_carrinho();
+    });
+
+    function quantidade_carrinho(){
+        let id_usuario = <?= $this->session->userdata('id_usuario')?>;
+
+        $.ajax({
+            url: "<?= base_url('cliente/ajax_quantidadeCarrinho')?>",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                id_usuario: id_usuario
+            },
+            success:function(data){
+                if(data['quantidade'] == null) return;
+                $('#quantidade_carrinho').text(data['quantidade']);
+            },
+            error:function(data){
+
+            }
+        });
+    }
+</script>
